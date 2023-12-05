@@ -13,16 +13,25 @@ CREATE TABLE IF NOT EXISTS usuarios (
     UNIQUE(correo)
 );
 
+-- Crear la tabla de autores
+CREATE TABLE IF NOT EXISTS autores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    UNIQUE(nombre)
+);
+
 -- Crear la tabla de ejemplares
 CREATE TABLE IF NOT EXISTS ejemplares (
     id VARCHAR(50) PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
-    autor VARCHAR(255),
+    id_autor INT,
     tipo VARCHAR(50) NOT NULL,
     ubicacion VARCHAR(255) NOT NULL,
     cantidad INT NOT NULL,
     prestados INT DEFAULT 0,
-    CHECK (cantidad >= prestados AND prestados >= 0)
+    imagenURL VARCHAR(255),
+    CHECK (cantidad >= prestados AND prestados >= 0),
+    FOREIGN KEY (id_autor) REFERENCES autores(id)
 );
 
 -- Crear la tabla de géneros
@@ -39,14 +48,32 @@ CREATE TABLE IF NOT EXISTS editoriales (
     UNIQUE(nombre)
 );
 
+-- Crear la tabla de idiomas
+CREATE TABLE IF NOT EXISTS idiomas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    UNIQUE(nombre)
+);
+
+-- Crear la tabla de artistas
+CREATE TABLE IF NOT EXISTS artistas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    UNIQUE(nombre)
+);
+
 -- Crear la tabla de libros
 CREATE TABLE IF NOT EXISTS libros (
     id_ejemplar VARCHAR(50),
     isbn VARCHAR(13),
     id_editorial INT,
     edicion INT,
+    fecha_publicacion DATE,
+    numero_paginas INT,
+	id_idioma INT,
     FOREIGN KEY (id_ejemplar) REFERENCES ejemplares(id),
-    FOREIGN KEY (id_editorial) REFERENCES editoriales(id)
+    FOREIGN KEY (id_editorial) REFERENCES editoriales(id),
+	FOREIGN KEY (id_idioma) REFERENCES idiomas(id) 
 );
 
 -- Crear la tabla de revistas
@@ -55,6 +82,9 @@ CREATE TABLE IF NOT EXISTS revistas (
     issn VARCHAR(9),
     numero INT,
     volumen INT,
+    periodicidad VARCHAR(50),
+    editor VARCHAR(100),
+    fecha_publicacion DATE,
     FOREIGN KEY (id_ejemplar) REFERENCES ejemplares(id)
 );
 
@@ -62,17 +92,31 @@ CREATE TABLE IF NOT EXISTS revistas (
 CREATE TABLE IF NOT EXISTS cds (
     id_ejemplar VARCHAR(50),
     duracion INT, -- Duración en minutos
+	ano_lanzamiento INT,
+    canciones INT,
+	id_artista INT, -- Nuevo campo para el artista
     id_genero INT,
     FOREIGN KEY (id_ejemplar) REFERENCES ejemplares(id),
-    FOREIGN KEY (id_genero) REFERENCES generos(id)
+    FOREIGN KEY (id_genero) REFERENCES generos(id),
+	FOREIGN KEY (id_artista) REFERENCES artistas(id)
+);
+
+-- Crear la tabla de universidades
+CREATE TABLE IF NOT EXISTS universidades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    UNIQUE(nombre)
 );
 
 -- Crear la tabla de tesis
 CREATE TABLE IF NOT EXISTS tesis (
     id_ejemplar VARCHAR(50),
-    universidad VARCHAR(100),
+    id_universidad INT,
     anio INT,
-    FOREIGN KEY (id_ejemplar) REFERENCES ejemplares(id)
+    grado VARCHAR(50),
+	programa_academico VARCHAR(100),
+    FOREIGN KEY (id_ejemplar) REFERENCES ejemplares(id),
+    FOREIGN KEY (id_universidad) REFERENCES universidades(id)
 );
 
 -- Crear la tabla de préstamos
@@ -93,7 +137,6 @@ CREATE TABLE IF NOT EXISTS configuraciones (
     valor VARCHAR(255) NOT NULL
 );
 
-
 -- Crear la tabla de devoluciones
 CREATE TABLE IF NOT EXISTS devoluciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -104,35 +147,21 @@ CREATE TABLE IF NOT EXISTS devoluciones (
     FOREIGN KEY (id_prestamo) REFERENCES prestamos(id)
 );
 
+-- Crear la tabla de pagos
 CREATE TABLE IF NOT EXISTS pagos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT,
     monto DECIMAL(10, 2) NOT NULL,
     fecha_pago DATE NOT NULL,
     id_prestamo INT,
+    id_ejemplar VARCHAR(50),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    FOREIGN KEY (id_prestamo) REFERENCES prestamos(id)
+    FOREIGN KEY (id_prestamo) REFERENCES prestamos(id),
+    FOREIGN KEY (id_ejemplar) REFERENCES ejemplares(id)
 );
-	
-ALTER TABLE pagos
-ADD COLUMN id_prestamo INT,
-ADD CONSTRAINT fk_prestamos
-FOREIGN KEY (id_prestamo) REFERENCES prestamos(id);
 
-
-SELECT * FROM devoluciones;	
-SELECT * FROM prestamos;
-SELECT * FROM ejemplares;	
-SELECT * FROM libros;	
-SELECT * FROM usuarios;	
-SELECT * FROM configuraciones;
-SELECT * FROM pagos;
-SELECT * FROM editoriales;
-SELECT e.id, e.titulo, e.autor, e.tipo, e.ubicacion, e.cantidad, e.prestados, l.isbn, l.id_editorial, l.edicion FROM ejemplares e INNER JOIN libros l ON e.id = l.id_ejemplar WHERE estado = "activo";
-INSERT INTO configuraciones(clave, valor) VALUES ("Mora", "0.50");
+-- Añadir columna "estado" a la tabla de ejemplares
 ALTER TABLE ejemplares ADD COLUMN estado VARCHAR(8) DEFAULT 'activo';
-
-
 
 -- Trigger para aumentar en uno los prestamos de los ejemplares
 DELIMITER $$
@@ -147,7 +176,6 @@ BEGIN
 END$$
 
 DELIMITER ;
-
 
 -- Trigger para decrementar en uno los prestamos de los ejemplares
 DELIMITER $$
@@ -167,8 +195,7 @@ END$$
 
 DELIMITER ;
 
-
-
+-- Trigger para actualizar el id_ejemplar en la tabla de pagos
 DELIMITER $$
 
 CREATE TRIGGER actualizar_id_ejemplar_pago
@@ -193,8 +220,3 @@ BEGIN
 END$$
 
 DELIMITER ;
-
-
-DROP TRIGGER IF EXISTS actualizar_id_ejemplar_pago;
-
-
