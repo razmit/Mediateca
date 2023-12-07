@@ -131,6 +131,8 @@ CREATE TABLE IF NOT EXISTS prestamos (
     CHECK (fecha_prestamo <= fecha_devolucion OR fecha_devolucion IS NULL)
 );
 
+SELECT p.id, e.id as idEjemplar ,e.titulo as ejemplarTitulo, p.fecha_prestamo FROM prestamos p JOIN ejemplares e ON p.id_ejemplar = e.id WHERE p.fecha_devolucion IS NULL AND p.id_usuario = 2;
+
 -- Crear la tabla de configuraciones
 CREATE TABLE IF NOT EXISTS configuraciones (
     clave VARCHAR(50) PRIMARY KEY,
@@ -146,6 +148,7 @@ CREATE TABLE IF NOT EXISTS devoluciones (
     comentarios VARCHAR(255),
     FOREIGN KEY (id_prestamo) REFERENCES prestamos(id)
 );
+
 
 -- Crear la tabla de pagos
 CREATE TABLE IF NOT EXISTS pagos (
@@ -223,5 +226,7 @@ DELIMITER ;
 
 
 SELECT * FROM prestamos;
+
+INSERT INTO prestamos(id_usuario, id_ejemplar, fecha_prestamo) VALUES(2,"LIB001", '2023/07/23');
 
 SELECT e.id, e.titulo, a.nombre AS autor, e.tipo, e.ubicacion FROM ejemplares e JOIN autores a ON e.id_autor = a.id WHERE e.cantidad > e.prestados;

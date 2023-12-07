@@ -71,61 +71,69 @@
             <div class="card text-center" >
 
                 <div class="card-body">
-                    <!-- Formulario "Realizar Prestamo" -->
-                    <div id="realizarFormulario" class="form-container" 
-                         <h3 class="form-title">Realizar Préstamo</h3>
-                        <form action="${pageContext.request.contextPath}/prestamo" method="post">
 
-
-                            <div class="search-container mb-3">
-                                <input type="text" class="form-control" id="searchInput" placeholder="Buscar ejemplares..." title="Escribe un nombre">
-                            </div>
-                            <div class="mb-3">
-                                <label for="ejemplarPrestamo" class="form-label">Ejemplar a prestar</label>
-                                <select class="form-select" id="ejemplarSelect" name="idEjemplar" aria-label="Seleccione id Ejemplar">
-                                    <!-- Opciones de ejemplar -->
-                                </select>
-                            </div>
-
-
-                            <!-- Tabla de ejemplares disponibles -->
+                    <!-- Formulario "Devolver Prestamo" -->
+                    <div id="devolverFormulario" class="form-container">
+                        <h3 class="form-title">Devolver Préstamo</h3>
+                        <form action="${pageContext.request.contextPath}/devolucion" method="post">
+                            <!-- Tabla de préstamos vigentes -->
                             <div class="table-responsive">
-                                <table class="table table-striped" id="ejemplaresTable">
+                                <table class="table table-striped" id="prestamosTable">
                                     <thead>
                                         <tr>
-                                            <th>ID Ejemplar</th>
-                                            <th>Título</th>
-                                            <th>Autor</th>
-                                            <th>Tipo</th>
-                                            <th>Ubicación</th>
+                                            <th>ID Préstamo</th>
+                                            <th>Ejemplar</th>
+                                            <th>Fecha Préstamo</th>
+                                            <!-- Otras columnas según sea necesario -->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% List<Ejemplar> ejemplaresDisponibles = (List<Ejemplar>) request.getAttribute("ejemplaresDisponibles");
-                                            if (ejemplaresDisponibles != null && !ejemplaresDisponibles.isEmpty()) {
-                                                for (Ejemplar ejemplar : ejemplaresDisponibles) {
+                                        <% List<Prestamo> prestamosVigentes = (List<Prestamo>) request.getAttribute("prestamosVigentes");
+                                            if (prestamosVigentes != null && !prestamosVigentes.isEmpty()) {
+                                                for (Prestamo prestamo : prestamosVigentes) {
                                         %>
-                                        <tr data-id = "<%= ejemplar.getId()%>">
-                                            <td><%= ejemplar.getId()%></td>
-                                            <td><%= ejemplar.getTitulo()%></td>
-                                            <td><%= ejemplar.getIdautor()%></td>
-                                            <td><%= ejemplar.getTipo()%></td>
-                                            <td><%= ejemplar.getUbicacion()%></td>
+                                        <tr data-id = "<%= prestamo.getId()%>">
+                                            <td><%= prestamo.getId()%></td>
+                                            <td><%= prestamo.getIdEjemplar()%></td>
+                                            <td><%= prestamo.getFechaPrestamo()%></td>
+
                                         </tr>
                                         <%   }
                                         } else {
                                         %>
-                                        <tr><td colspan="5">No hay ejemplares disponibles</td></tr>
+                                        <tr><td colspan="5">No hay prestamos disponibles</td></tr>
                                         <%
                                             }
                                         %>
                                     </tbody>
                                 </table>
                             </div>
-                            <button type="submit" class="btn btn-primary">Realizar Préstamo</button>
+
+                            <!-- Formulario para devolución -->
+                            <div class="mb-3">
+                                <label for="prestamoDevolucion" class="form-label">Seleccionar Préstamo</label>
+                                <select class="form-select" id="prestamoDevolucion" name="idPrestamo" aria-label="Seleccione Id Préstamo">
+                                    <!-- Las opciones se llenarán dinámicamente al seleccionar una fila de la tabla -->
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="estadoDevolucion" class="form-label">Estado de Devolución</label>
+                                <select class="form-select" id="estadoDevolucion" name="estadoDevolucion" aria-label="Estado devolución">
+                                    <option value="En tiempo">En tiempo</option>
+                                    <option value="Atrasado">Atrasado</option>
+                                    <!-- Más estados si son necesarios -->
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="comentario" class="form-label">Comentarios</label>
+                                <textarea class="form-control" id="comentario" name="comentario" rows="4" placeholder="Escribe tu comentario aquí..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Devolver</button>
                         </form>
                     </div>
-
 
                 </div>
             </div>
@@ -145,7 +153,7 @@
                 if (success === 'true') {
                     Swal.fire(
                             '¡Éxito!',
-                            'El préstamo ha sido realizado con éxito.',
+                            'La devolución ha sido realizado con éxito.',
                             'success'
                             );
                 } else if (success === 'false') {
