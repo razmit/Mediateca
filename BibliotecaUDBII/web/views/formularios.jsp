@@ -62,7 +62,7 @@
                                 <a class="nav-link"  href="<%=request.getContextPath()%>/devolucion">Devolver Préstamo</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="registrarPago">Registrar Pago</a>
+                                <a class="nav-link" href="<%=request.getContextPath()%>/pago">Registrar Pago</a>
                             </li>
                         </ul>
                     </div>

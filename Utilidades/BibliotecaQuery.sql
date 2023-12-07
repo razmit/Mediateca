@@ -143,12 +143,25 @@ CREATE TABLE IF NOT EXISTS configuraciones (
 CREATE TABLE IF NOT EXISTS devoluciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_prestamo INT,
+	id_usuario INT,
     fecha_devolucion DATE NOT NULL,
     estado_devolucion ENUM('En tiempo', 'Atrasado') NOT NULL,
     comentarios VARCHAR(255),
-    FOREIGN KEY (id_prestamo) REFERENCES prestamos(id)
+    FOREIGN KEY (id_prestamo) REFERENCES prestamos(id),
+	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
+SELECT * FROM devoluciones;
+
+ALTER TABLE devoluciones
+ADD COLUMN id_usuario INT;
+
+ALTER TABLE devoluciones
+ADD CONSTRAINT fk_devoluciones_usuarios
+FOREIGN KEY (id_usuario) REFERENCES usuarios(id);
+
+INSERT INTO devoluciones(id_prestamo, id_usuario, fecha_devolucion, estado_devolucion,comentarios) VALUES(4,2,"2023-07-23", "Atrasado", "Todo bien");
+SELECT * FROM pagos;
 
 -- Crear la tabla de pagos
 CREATE TABLE IF NOT EXISTS pagos (
@@ -157,10 +170,33 @@ CREATE TABLE IF NOT EXISTS pagos (
     monto DECIMAL(10, 2) NOT NULL,
     fecha_pago DATE NOT NULL,
     id_prestamo INT,
-    id_ejemplar VARCHAR(50),
+ 
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    FOREIGN KEY (id_prestamo) REFERENCES prestamos(id),
-    FOREIGN KEY (id_ejemplar) REFERENCES ejemplares(id)
+    FOREIGN KEY (id_prestamo) REFERENCES prestamos(id)
+);
+-- Eliminar la columna id_ejemplar de la tabla pagos
+ALTER TABLE pagos
+DROP COLUMN id_ejemplar;
+
+ALTER TABLE pagos
+DROP FOREIGN KEY pagos_ibfk_3;
+
+-- Permitir que la columna "monto" pueda quedar nula
+ALTER TABLE pagos
+MODIFY COLUMN monto DECIMAL(10, 2) NULL;
+
+-- Permitir que la columna "fecha_pago" pueda quedar nula
+ALTER TABLE pagos
+MODIFY COLUMN fecha_pago DATE NULL;
+
+
+
+CREATE TABLE IF NOT EXISTS pagos_mora (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_devolucion INT,
+    monto_mora DECIMAL(10, 2) NOT NULL,
+    fecha_pago_mora DATE NOT NULL,
+    FOREIGN KEY (id_devolucion) REFERENCES devoluciones(id)
 );
 
 -- Añadir columna "estado" a la tabla de ejemplares

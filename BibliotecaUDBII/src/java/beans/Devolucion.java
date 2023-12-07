@@ -15,6 +15,7 @@ public class Devolucion {
 
     private int id;
     private int idprestamo;
+    private int idUsuario;
     private Date fechadevolucion;
     private String estadodevolucion;
     private String comentarios;
@@ -22,13 +23,24 @@ public class Devolucion {
     public Devolucion() {
     }
 
-    public Devolucion(int id, int idprestamo, Date fechadevolucion, String estadodevolucion, String comentarios) {
+    public Devolucion(int id, int idprestamo, int idUsuario, Date fechadevolucion, String estadodevolucion, String comentarios) {
         this.id = id;
         this.idprestamo = idprestamo;
+        this.idUsuario = idUsuario;
         this.fechadevolucion = fechadevolucion;
         this.estadodevolucion = estadodevolucion;
         this.comentarios = comentarios;
     }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+   
 
     public int getId() {
         return id;

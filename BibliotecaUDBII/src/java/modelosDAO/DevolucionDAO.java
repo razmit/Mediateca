@@ -28,7 +28,10 @@ public class DevolucionDAO {
         boolean resultado = false;
 
         try (Connection conn = conexionDB.getConnection()) {
-            String sql = "INSERT INTO devoluciones (id_prestamo, fecha_devolucion, estado_devolucion, comentarios) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO devoluciones (id_prestamo, fecha_devolucion, estado_devolucion, comentarios, id_usuario) VALUES (?, ?, ?, ?, ?)";
+
+            String sqlPagos = "INSERT INTO pagos (id_usuario, monto, id_prestamo) VALUES (?, ?, ?)";
+
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 LocalDate fechaActual = LocalDate.now();
                 Date fechaDevolucion = Date.valueOf(fechaActual);
@@ -36,8 +39,19 @@ public class DevolucionDAO {
                 stmt.setDate(2, fechaDevolucion);
                 stmt.setString(3, devolucion.getEstadodevolucion());
                 stmt.setString(4, devolucion.getComentarios());
+                stmt.setInt(5, devolucion.getIdUsuario());
+                PreparedStatement stmt1 = conn.prepareStatement(sqlPagos);
+                
+                String estado = devolucion.getEstadodevolucion();
+                if ("Atrasado".equals(estado)) {
 
-                if (stmt != null) {
+                    stmt1.setInt(1, devolucion.getIdUsuario());
+                    stmt1.setInt(2, 1);
+                    stmt1.setInt(3, devolucion.getIdprestamo());
+                    stmt1.executeUpdate();
+                    stmt.executeUpdate();
+                    resultado = true;
+                } else {
                     stmt.executeUpdate();
                     resultado = true;
                 }

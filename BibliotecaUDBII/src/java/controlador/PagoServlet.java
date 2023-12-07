@@ -6,6 +6,7 @@
 package controlador;
 
 import beans.Devolucion;
+import beans.Pago;
 import beans.Prestamo;
 import beans.Usuario;
 import java.io.IOException;
@@ -20,61 +21,60 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelosDAO.DevolucionDAO;
+import modelosDAO.PagoDAO;
 import util.SessionUtils;
 
 /**
  *
  * @author PC
  */
-@WebServlet("/devolucion")
-public class DevolucionServlet extends HttpServlet {
+@WebServlet("/pago")
+public class PagoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         int idUsuario = usuario.getId();
 
-        DevolucionDAO devolucionDAO = new DevolucionDAO();
-        List<Prestamo> prestamosVigentes = devolucionDAO.obtenerPrestamosVigentesPorUsuario(idUsuario);
+        PagoDAO pagoDAO = new PagoDAO();
+        List<Pago> pagosVigentes = pagoDAO.obtenerPagosVigentesPorUsuario(idUsuario);
 
-        request.setAttribute("prestamosVigentes", prestamosVigentes);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/devolucion.jsp");
+        request.setAttribute("pagosVigentes", pagosVigentes);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/pagos.jsp");
         dispatcher.forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String idprestamo = request.getParameter("idPrestamo");
-        String estadoDevolucion = request.getParameter("estadoDevolucion");
-        String comentario = request.getParameter("comentario");
-        int idPrestamoInt = Integer.parseInt(idprestamo);
+        String idpago = request.getParameter("idpago");
+        int idPago = Integer.parseInt(idpago);
         HttpSession session = request.getSession(false); // Obtener la sesión actual sin crear una nueva
         Usuario usuario = SessionUtils.getUsuarioFromSession(session);
         int usuarioId = usuario.getId();
 
         // Lógica para devolver el préstamo
-        Devolucion devolucion = new Devolucion();
+        Pago pago = new Pago();
         LocalDate fechaActual = LocalDate.now();
         Date fechaDevolucion = Date.valueOf(fechaActual);
 
         // Establecer los datos de la devolución
-        devolucion.setIdprestamo(idPrestamoInt);
-        devolucion.setFechadevolucion(fechaDevolucion);
-        devolucion.setEstadodevolucion(estadoDevolucion);
-        devolucion.setComentarios(comentario);
-        devolucion.setIdUsuario(usuarioId);
-
-        if (devolucion != null) {
-            DevolucionDAO devolucionDAO = new DevolucionDAO();
-            boolean resultado = devolucionDAO.guardarDevolucion(devolucion);
+        pago.setId(idPago);
+        pago.setIdusuario(usuarioId);
+        pago.setFechapago(fechaDevolucion);
+        
+        
+        if (pago != null) {
+            PagoDAO pagoDAO = new PagoDAO();
+            boolean resultado = pagoDAO.actualizarPago(pago);
 
             if (resultado) {
-                response.sendRedirect(request.getContextPath() + "/devolucion?success=true");
+                response.sendRedirect(request.getContextPath() + "/pago?success=true");
             } else {
-                String mensaje = "No se pudo realizar el prestamo";
+                String mensaje = "No se pudo realizar el pago";
                 request.setAttribute("mensaje", mensaje);
             }
         }
 
     }
+
 }
