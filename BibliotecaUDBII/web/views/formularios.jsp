@@ -28,6 +28,9 @@
             }
         </style>
         <base href="${pageContext.request.contextPath}/" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     </head>
     <body>
@@ -57,11 +60,15 @@
                     <!-- Formulario "Realizar Prestamo" -->
                     <div id="realizarFormulario" class="form-container" style="display: none;">
                         <h3 class="form-title">Realizar Préstamo</h3>
-                        <form action="${pageContext.request.contextPath}/prestamo" method="get">
+                        <form action="${pageContext.request.contextPath}/prestamo" method="post">
 
+
+                            <div class="search-container mb-3">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Buscar ejemplares..." title="Escribe un nombre">
+                            </div>
                             <div class="mb-3">
-                                <label for="ejemplarPrestamo" class="form-label">Ejemplar</label>
-                                <select class="form-select" id="ejemplarPrestamo" aria-label="Seleccione id Ejemplar">
+                                <label for="ejemplarPrestamo" class="form-label">Ejemplar a prestar</label>
+                                <select class="form-select" id="ejemplarSelect" name="idEjemplar" aria-label="Seleccione id Ejemplar">
                                     <!-- Opciones de ejemplar -->
                                 </select>
                             </div>
@@ -69,7 +76,7 @@
 
                             <!-- Tabla de ejemplares disponibles -->
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                <table class="table table-striped" id="ejemplaresTable">
                                     <thead>
                                         <tr>
                                             <th>ID Ejemplar</th>
@@ -84,7 +91,7 @@
                                             if (ejemplaresDisponibles != null && !ejemplaresDisponibles.isEmpty()) {
                                                 for (Ejemplar ejemplar : ejemplaresDisponibles) {
                                         %>
-                                        <tr>
+                                        <tr data-id = "<%= ejemplar.getId()%>">
                                             <td><%= ejemplar.getId()%></td>
                                             <td><%= ejemplar.getTitulo()%></td>
                                             <td><%= ejemplar.getIdautor()%></td>
@@ -101,7 +108,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <button type="submit" class="btn btn-primary">Realizar Préstamo</button>
                         </form>
                     </div>
 
@@ -172,6 +179,53 @@
                     document.getElementById("pagoFormulario").style.display = "block";
                 });
             };
+
+            $(document).ready(function () {
+
+                var urlParams = new URLSearchParams(window.location.search);
+                var success = urlParams.get('success');
+
+                if (success === 'true') {
+                    Swal.fire(
+                            '¡Éxito!',
+                            'El préstamo ha sido realizado con éxito.',
+                            'success'
+                            );
+                } else if (success === 'false') {
+                    // Puedes manejar el caso de error si lo necesitas
+                    Swal.fire(
+                            'Error',
+                            'Hubo un problema al realizar el préstamo.',
+                            'error'
+                            );
+                }
+
+
+                $("#searchInput").on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    $("#ejemplaresTable tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+
+                $("#ejemplaresTable tr").click(function () {
+                    var ejemplarId = $(this).data("id");
+                    var ejemplarTitulo = $(this).find("td:nth-child(2)").text(); // Asumiendo que el título está en la segunda columna
+
+                    // Verificar si la opción ya existe en el select
+                    if ($("#ejemplarSelect option[value='" + ejemplarId + "']").length == 0) {
+                        // Agregar la nueva opción al select
+                        $("#ejemplarSelect").append(new Option(ejemplarTitulo, ejemplarId));
+                    }
+
+                    // Seleccionar la nueva opción
+                    $("#ejemplarSelect").val(ejemplarId);
+                });
+
+
+            });
+
+
 
         </script>
 

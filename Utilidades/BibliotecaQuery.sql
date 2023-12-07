@@ -222,6 +222,6 @@ END$$
 DELIMITER ;
 
 
-SELECT * FROM usuarios;
+SELECT * FROM prestamos;
 
 SELECT e.id, e.titulo, a.nombre AS autor, e.tipo, e.ubicacion FROM ejemplares e JOIN autores a ON e.id_autor = a.id WHERE e.cantidad > e.prestados;

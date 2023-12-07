@@ -9,9 +9,11 @@ import beans.Ejemplar;
 import beans.Prestamo;
 import beans.conexionDB;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -28,11 +30,17 @@ public class PrestamoDAO {
         try (Connection conn = conexionDB.getConnection()) {
             String sql = "INSERT INTO prestamos (id_usuario, id_ejemplar, fecha_prestamo) VALUES (?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                LocalDate fechaActual = LocalDate.now();
+                Date fechaPrestamo = Date.valueOf(fechaActual);
                 stmt.setInt(1, prestamo.getIdUsuario());
                 stmt.setString(2, prestamo.getIdEjemplar());
-                stmt.setDate(3, new java.sql.Date(prestamo.getFechaPrestamo().getTime()));
-                stmt.executeUpdate();
-                resultado = true;
+                stmt.setDate(3, fechaPrestamo);
+
+                if (stmt != null) {
+                    stmt.executeUpdate();
+                    resultado = true;
+                }
+
             }
         } catch (SQLException e) {
             // Aquí se debe registrar la excepción con un logger
