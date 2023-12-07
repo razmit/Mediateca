@@ -19,7 +19,7 @@ public class Tesis extends Ejemplar {
     public Tesis() {
     }
 
-    public Tesis(String iduniversidad, int anio, String grado, String programaAcademico, String id, String titulo, String idautor, String tipo, String ubicacion, int cantidad, int prestados, int imagenURL) {
+    public Tesis(String iduniversidad, int anio, String grado, String programaAcademico, String id, String titulo, String idautor, String tipo, String ubicacion, int cantidad, int prestados, String imagenURL) {
         super(id, titulo, idautor, tipo, ubicacion, cantidad, prestados, imagenURL);
         this.iduniversidad = iduniversidad;
         this.anio = anio;
@@ -130,12 +130,12 @@ public class Tesis extends Ejemplar {
     }
 
     @Override
-    public int getImagenURL() {
+    public String getImagenURL() {
         return imagenURL;
     }
 
     @Override
-    public void setImagenURL(int imagenURL) {
+    public void setImagenURL(String imagenURL) {
         this.imagenURL = imagenURL;
     }
 

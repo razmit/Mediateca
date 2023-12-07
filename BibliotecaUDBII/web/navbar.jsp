@@ -12,5 +12,5 @@
             out.println("<a href='logout'>Cerrar Sesión</a>");
         } else {
             out.println("<a href='views/login.jsp'>Iniciar Sesión</a>");
-            }%>
+        }%>
 </div>

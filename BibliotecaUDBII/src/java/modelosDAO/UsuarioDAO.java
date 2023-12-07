@@ -28,6 +28,10 @@ public class UsuarioDAO {
 
         try {
             conn = conexionDB.getConnection();
+            if (conn == null) {
+                throw new SQLException("No se pudo establecer conexión con la base de datos");
+            }
+
             stmt = conn.prepareStatement(SQL_SELECT_BY_EMAIL_AND_PASSWORD);
             stmt.setString(1, correo);
             stmt.setString(2, contrasena);
@@ -42,9 +46,21 @@ public class UsuarioDAO {
                 usuario.setMora(rs.getBigDecimal("mora"));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace(System.out); // Considerar una mejor gestión de excepciones
+            ex.printStackTrace(System.out); // Considerar un mejor manejo de excepciones, como logging
         } finally {
-            conexionDB.close(conn);
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
+            }
         }
         return usuario;
     }

@@ -25,7 +25,7 @@ public class Revista extends Ejemplar {
 
     
     
-    public Revista(String issn, int numero, int volumen, String periodicidad, String editor, Date fecha_publicacion, String id, String titulo, String idautor, String tipo, String ubicacion, int cantidad, int prestados, int imagenURL) {
+    public Revista(String issn, int numero, int volumen, String periodicidad, String editor, Date fecha_publicacion, String id, String titulo, String idautor, String tipo, String ubicacion, int cantidad, int prestados, String imagenURL) {
         super(id, titulo, idautor, tipo, ubicacion, cantidad, prestados, imagenURL);
         this.issn = issn;
         this.numero = numero;
@@ -154,12 +154,12 @@ public class Revista extends Ejemplar {
     }
 
     @Override
-    public int getImagenURL() {
+    public String getImagenURL() {
         return imagenURL;
     }
 
     @Override
-    public void setImagenURL(int imagenURL) {
+    public void setImagenURL(String imagenURL) {
         this.imagenURL = imagenURL;
     }
 

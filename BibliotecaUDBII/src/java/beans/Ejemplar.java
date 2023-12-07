@@ -10,6 +10,7 @@ package beans;
  * @author Josue
  */
 public abstract class Ejemplar {
+
     protected String id;
     protected String titulo;
     protected String idautor;
@@ -17,12 +18,12 @@ public abstract class Ejemplar {
     protected String ubicacion;
     protected int cantidad;
     protected int prestados;
-    protected int imagenURL;
+    protected String imagenURL;
 
     public Ejemplar() {
     }
 
-    public Ejemplar(String id, String titulo, String idautor, String tipo, String ubicacion, int cantidad, int prestados, int imagenURL) {
+    public Ejemplar(String id, String titulo, String idautor, String tipo, String ubicacion, int cantidad, int prestados, String imagenURL) {
         this.id = id;
         this.titulo = titulo;
         this.idautor = idautor;
@@ -89,11 +90,11 @@ public abstract class Ejemplar {
         this.prestados = prestados;
     }
 
-    public int getImagenURL() {
+    public String getImagenURL() {
         return imagenURL;
     }
 
-    public void setImagenURL(int imagenURL) {
+    public void setImagenURL(String imagenURL) {
         this.imagenURL = imagenURL;
     }
 
@@ -101,6 +102,5 @@ public abstract class Ejemplar {
     public String toString() {
         return "Ejemplares{" + "id=" + id + ", titulo=" + titulo + ", idautor=" + idautor + ", tipo=" + tipo + ", ubicacion=" + ubicacion + ", cantidad=" + cantidad + ", prestados=" + prestados + ", imagenURL=" + imagenURL + '}';
     }
-    
-    
+
 }

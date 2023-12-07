@@ -24,7 +24,7 @@ public class Libro extends Ejemplar {
     public Libro() {
     }
 
-    public Libro(String isbn, int idEditorial, int idedicion, int edicion, Date fecha_publicacion, int numPag, int idIdioma, String id, String titulo, String idautor, String tipo, String ubicacion, int cantidad, int prestados, int imagenURL) {
+    public Libro(String isbn, int idEditorial, int idedicion, int edicion, Date fecha_publicacion, int numPag, int idIdioma, String id, String titulo, String idautor, String tipo, String ubicacion, int cantidad, int prestados, String imagenURL) {
         super(id, titulo, idautor, tipo, ubicacion, cantidad, prestados, imagenURL);
         this.isbn = isbn;
         this.idEditorial = idEditorial;
@@ -162,12 +162,12 @@ public class Libro extends Ejemplar {
     }
 
     @Override
-    public int getImagenURL() {
+    public String getImagenURL() {
         return imagenURL;
     }
 
     @Override
-    public void setImagenURL(int imagenURL) {
+    public void setImagenURL(String imagenURL) {
         this.imagenURL = imagenURL;
     }
 

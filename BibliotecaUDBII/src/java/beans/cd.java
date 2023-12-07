@@ -20,7 +20,7 @@ public class cd extends Ejemplar {
     public cd() {
     }
 
-    public cd(int duracion, int anoLanzamiento, int canciones, int idGenero, int id_artista, String id, String titulo, String idautor, String tipo, String ubicacion, int cantidad, int prestados, int imagenURL) {
+    public cd(int duracion, int anoLanzamiento, int canciones, int idGenero, int id_artista, String id, String titulo, String idautor, String tipo, String ubicacion, int cantidad, int prestados, String imagenURL) {
         super(id, titulo, idautor, tipo, ubicacion, cantidad, prestados, imagenURL);
         this.duracion = duracion;
         this.anoLanzamiento = anoLanzamiento;
@@ -140,12 +140,12 @@ public class cd extends Ejemplar {
     }
 
     @Override
-    public int getImagenURL() {
+    public String getImagenURL() {
         return imagenURL;
     }
 
     @Override
-    public void setImagenURL(int imagenURL) {
+    public void setImagenURL(String imagenURL) {
         this.imagenURL = imagenURL;
     }
 
