@@ -133,10 +133,38 @@
 
 <script>
 
+// nuevo sweet alert//
+  $(document).ready(function () {
+        $("form").submit(function (event) {
+            // Obtener valores de los campos
+            var idPago = $("#idpago").val();
+            var monto = $("#monto").val();
+
+            // Validar que los campos no estén vacíos
+            if (!idPago || !monto) {
+                // Mostrar alerta de error si algún campo está vacío
+                Swal.fire(
+                    'Error',
+                    'Por favor, completa todos los campos antes de realizar el pago.',
+                    'error'
+                );
+
+                // Detener el envío del formulario
+                event.preventDefault();
+            } else {
+                // Envío exitoso, mostrar alerta de éxito
+                Swal.fire(
+                    'Éxito',
+                    'El pago se ha realizado correctamente.',
+                    'success'
+                );
+            }
+        });
+    });
 
 
 
-
+    //corroborar sweet alert//
     $(document).ready(function () {
 
         var urlParams = new URLSearchParams(window.location.search);

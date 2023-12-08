@@ -133,10 +133,6 @@
 
         <script>
 
-
-
-
-
             $(document).ready(function () {
 
                 var urlParams = new URLSearchParams(window.location.search);
@@ -156,6 +152,29 @@
                             'error'
                             );
                 }
+                //
+                $(document).ready(function () {
+        $("form").submit(function (event) {
+            // Validar aquí los campos del formulario antes de enviarlo
+            var ejemplarSeleccionado = $("#ejemplarSelect").val();
+
+            if (!ejemplarSeleccionado) {
+                // Si el ejemplar no está seleccionado, muestra una alerta
+                Swal.fire(
+                    'oops!',
+                    'Por favor, selecciona un campo para completar el resgitro.',
+                    'error'
+                );
+
+                // Detiene el envío del formulario
+                event.preventDefault();
+            }
+            // Puedes agregar más validaciones según sea necesario
+
+            // Si llegamos a este punto, el formulario se enviará normalmente
+        });
+    });
+                
 
 
                 $("#searchInput").on("keyup", function () {

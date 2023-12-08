@@ -16,12 +16,15 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author PC
  */
 public class PagoDAO {
+    
+    private static final Logger logger = Logger.getLogger(PagoDAO.class);
 
     public boolean actualizarPago(Pago pago) {
         boolean resultado = false;
@@ -44,8 +47,8 @@ public class PagoDAO {
                 }
             }
         } catch (SQLException e) {
-            // Aquí se debe registrar la excepción con un logger
-            System.err.println("Error al actualizar el pago: " + e.getMessage());
+            
+            logger.error("Error al actualizar el pago: " + e);
         }
 
         return resultado;
@@ -76,8 +79,9 @@ public class PagoDAO {
                 pagosVigentes.add(pago);
             }
         } catch (SQLException e) {
-            // Manejo de la excepción
-            e.printStackTrace();
+            
+             logger.error("Error al obtener pagos vigentes: " + e);
+            
         } finally {
             // Cerrar recursos
             try {
@@ -91,7 +95,8 @@ public class PagoDAO {
                     conexion.close();
                 }
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                 logger.error("Error al cerrar recursos: " + ex);
+                
             }
         }
 

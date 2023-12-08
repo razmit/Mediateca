@@ -8,6 +8,7 @@ package modelosDAO;
 import beans.Ejemplar;
 import beans.Prestamo;
 import beans.conexionDB;
+import com.sun.istack.internal.logging.Logger;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -23,6 +24,8 @@ import java.util.List;
  * @author Josue
  */
 public class PrestamoDAO {
+    
+   private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(PrestamoDAO.class);
 
     public boolean guardarPrestamo(Prestamo prestamo) {
         boolean resultado = false;
@@ -43,8 +46,8 @@ public class PrestamoDAO {
 
             }
         } catch (SQLException e) {
-            // Aquí se debe registrar la excepción con un logger
-            System.err.println("Error al guardar el préstamo: " + e.getMessage());
+           
+            logger.error("Error al guardar el préstamo: " + e);
 
         }
         return resultado;
@@ -74,7 +77,8 @@ public class PrestamoDAO {
                 ejemplares.add(ejemplar);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Manejo de la excepción
+            logger.error("Error al obtener ejemplares disponibles: " + e);
+            
         }
 
         return ejemplares;

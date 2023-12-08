@@ -17,6 +17,8 @@ import java.sql.SQLException;
  * @author Josue
  */
 public class UsuarioDAO {
+    
+    private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(UsuarioDAO.class);
 
     private static final String SQL_SELECT_BY_EMAIL_AND_PASSWORD = "SELECT id, nombre, correo, tipo_usuario, mora FROM usuarios WHERE correo = ? AND contrasena = ?";
 
@@ -46,7 +48,7 @@ public class UsuarioDAO {
                 usuario.setMora(rs.getBigDecimal("mora"));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace(System.out); // Considerar un mejor manejo de excepciones, como logging
+             logger.error("Error al obtener usuario por correo y contraseña: " + ex);
         } finally {
             try {
                 if (rs != null) {
@@ -59,7 +61,8 @@ public class UsuarioDAO {
                     conn.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace(System.out);
+                 logger.error("Error al cerrar recursos: " +e);
+              
             }
         }
         return usuario;

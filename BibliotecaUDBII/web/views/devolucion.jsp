@@ -140,11 +140,39 @@
         </div>
 
         <script>
+            $(document).ready(function () {
+        $("form").submit(function (event) {
+            // Obtener valores de los campos
+            var prestamoSeleccionado = $("#prestamoDevolucion").val();
+            var estadoDevolucion = $("#estadoDevolucion").val();
+            var comentario = $("#comentario").val();
+
+            // Validar que los campos no estén vacíos
+            if (!prestamoSeleccionado || !estadoDevolucion || !comentario) {
+                // Mostrar alerta de error si algún campo está vacío
+                Swal.fire(
+                    'Error',
+                    'Por favor, completa todos los campos antes de realizar la devolución.',
+                    'error'
+                );
+
+                // Detener el envío del formulario
+                event.preventDefault();
+            } else {
+                // Envío exitoso, mostrar alerta de éxito
+                Swal.fire(
+                    'Éxito',
+                    'La devolución se ha realizado correctamente.',
+                    'success'
+                );
+            }
+        });
+    });
 
 
 
 
-
+            //corroborar esta sweet alert//
             $(document).ready(function () {
 
                 var urlParams = new URLSearchParams(window.location.search);

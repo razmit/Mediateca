@@ -17,12 +17,16 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
 
 /**
  *
  * @author PC
  */
 public class DevolucionDAO {
+    
+    private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(DevolucionDAO.class);
 
     public boolean guardarDevolucion(Devolucion devolucion) {
         boolean resultado = false;
@@ -58,8 +62,8 @@ public class DevolucionDAO {
 
             }
         } catch (SQLException e) {
-            // Aquí se debe registrar la excepción con un logger
-            System.err.println("Error al procesar la devolución: " + e.getMessage());
+          
+              logger.error("Error al procesar la devolución: " +  e);
 
         }
         return resultado;
@@ -91,8 +95,9 @@ public class DevolucionDAO {
                 prestamosVigentes.add(prestamo);
             }
         } catch (SQLException e) {
-            // Manejo de la excepción
-            e.printStackTrace();
+            
+               logger.error("Error al obtener préstamos vigentes: " + e);
+            
         } finally {
             // Cerrar recursos
             try {
@@ -106,7 +111,8 @@ public class DevolucionDAO {
                     conexion.close();
                 }
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                logger.error("Error al cerrar recursos: " + ex);
+                
             }
         }
 
