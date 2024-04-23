@@ -15,7 +15,7 @@ public class Mediateca {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("Hola Tonotos");
+        System.out.println("Hola a Todos");
     }
     
 }
