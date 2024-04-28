@@ -1,3 +1,0 @@
-# Mediateca
-
-Yeet
