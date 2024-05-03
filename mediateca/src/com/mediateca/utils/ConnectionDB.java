@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class ConnectionDB {
     
-    public void ConnectionDB () {
+    public static Connection getConnection () throws SQLException{
           Connection conn = null;
        
 
@@ -42,8 +42,9 @@ public class ConnectionDB {
                     ex.printStackTrace();
                 }
             }
-}
+        }
         
+        return conn;
     }
   
 }

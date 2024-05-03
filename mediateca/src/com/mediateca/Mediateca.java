@@ -14,9 +14,9 @@ public class Mediateca {
     public static void main(String[] args) {
         // TODO code application logic here
        
-        ConnectionDB conn = new ConnectionDB();
-        
-        conn.ConnectionDB();
+//        ConnectionDB conn = new ConnectionDB();
+//        
+//        conn.getConnection();
     }
     
 }
