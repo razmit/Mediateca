@@ -416,7 +416,7 @@ public class adicion extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Agregar datos");
+        jButton1.setText("Actualizar");
 
         jTextField17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
