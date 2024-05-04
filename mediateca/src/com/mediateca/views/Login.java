@@ -5,18 +5,30 @@
 package com.mediateca.views;
 
 import javax.swing.JOptionPane;
+import java.util.HashMap;
 
 /**
  *
- * @author E095713
+ * @author ramir
  */
 public class Login extends javax.swing.JFrame {
 
+    private final HashMap<String, String> usuarios;
+    
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        
+    usuarios = new HashMap<>();
+        // Agregamos usuarios y contraseñas
+        usuarios.put("usuario1", "contraseña1");
+        usuarios.put("usuario2", "contraseña2");
+        usuarios.put("usuario3", "contraseña3");
+        usuarios.put("usuario4", "contraseña4");
     }
 
     /**
@@ -127,15 +139,19 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        // TODO add your handling code here:
-    String usuario = txtUsuario.getText();
-    String contraseña = txtContraseña.getText(); 
-    
-    if(usuario.isEmpty() || contraseña.isEmpty()){
-        JOptionPane.showMessageDialog(null, "Algun campo está vacío");
+          String usuario = txtUsuario.getText();
+    String contraseña = new String(txtContraseña.getPassword());
+
+    if (usuario.isEmpty() || contraseña.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Campo Obligatorios");
     } else {
-        if (usuario.equals("usuario1") && contraseña.equals("1234")) {
-            JOptionPane.showMessageDialog(null, "¡Bienvenido!");
+        // Verificamos que el usuario la contraseña coinciden
+        if (usuarios.containsKey(usuario) && usuarios.get(usuario).equals(contraseña)) {
+            // Si el inicio de sesión es exitoso, nos mostrara la ventana del Menú Principal
+            MenuPrincipal menuPrincipal = new MenuPrincipal();
+            menuPrincipal.setLocationRelativeTo(null);
+            menuPrincipal.setVisible(true);
+            this.dispose(); // Cerramos la ventana de inicio de sesión
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrectos");
         }
