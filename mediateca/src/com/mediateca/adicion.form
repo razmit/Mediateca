@@ -549,7 +549,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar datos"/>
+        <Property name="text" type="java.lang.String" value="Actualizar"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="cdau">
