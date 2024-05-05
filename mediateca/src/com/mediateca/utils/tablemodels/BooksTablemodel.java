@@ -1,6 +1,6 @@
 package com.mediateca.utils.tablemodels;
 
-import com.mediateca.utils.dbmodels.ModelCDs;
+import com.mediateca.utils.dbmodels.ModelBooks;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +14,9 @@ import javax.swing.table.AbstractTableModel;
 public class BooksTablemodel extends AbstractTableModel {
 
     private String[] columnNames; // Array of column names (headers)
-    private List<ModelCDs> tableData; // List of ModelCDS objects representing table rows
+    private List<ModelBooks> tableData; // List of ModelCDS objects representing table rows
 
-    public BooksTablemodel(String[] columnNames, List<ModelCDs> tableData) {
+    public BooksTablemodel(String[] columnNames, List<ModelBooks> tableData) {
         this.columnNames = columnNames;
         this.tableData = tableData;
     }
@@ -40,10 +40,10 @@ public class BooksTablemodel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int col) {
-        ModelCDs cds = tableData.get(row);
+        ModelBooks cds = tableData.get(row);
         switch (col) {
             case 0:
-                return cds.getId_cd_audio();
+                return cds.getId_libro();
             case 1:
                 return cds.getCodigo();
             case 2:
@@ -51,14 +51,16 @@ public class BooksTablemodel extends AbstractTableModel {
             case 3:
                 return cds.getUnidades_disponibles();
             case 4:
-                return cds.getArtista();
+                return cds.getAutor();
             case 5:
-                return cds.getGenero();
+                return cds.getNum_paginas();
             case 6:
-                return cds.getDuracion();
+                return cds.getEditorial();
             case 7:
-                return cds.getNum_canciones();
+                return cds.getIsbn();
             case 8:
+                return cds.getAno_publicacion();
+            case 9:
                 return cds.getTipo_material_id();
             default:
                 return null;
@@ -66,7 +68,7 @@ public class BooksTablemodel extends AbstractTableModel {
     }
 
     // Optional method to update the table data (assuming your external method provides a way to fetch new data)
-    public void updateData(List<ModelCDs> newData) {
+    public void updateData(List<ModelBooks> newData) {
         this.tableData = newData;
         fireTableDataChanged(); // Notify JTable about data changes (triggers table refresh)
     }
