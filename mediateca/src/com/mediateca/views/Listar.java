@@ -1,9 +1,20 @@
 package com.mediateca.views;
 
+import com.mediateca.utils.dbmodels.ModelBooks;
 import com.mediateca.utils.dbmodels.ModelCDs;
+import com.mediateca.utils.dbmodels.ModelDVDs;
+import com.mediateca.utils.dbmodels.ModelMagazines;
+import com.mediateca.utils.services.ServiceBooks;
 import com.mediateca.utils.services.ServiceCDS;
+import com.mediateca.utils.services.ServiceDVDS;
+import com.mediateca.utils.services.ServiceMagazines;
+import com.mediateca.utils.tablemodels.BooksTablemodel;
 import com.mediateca.utils.tablemodels.CDsTablemodel;
+import com.mediateca.utils.tablemodels.DVDsTablemodel;
+import com.mediateca.utils.tablemodels.MagazinesTablemodel;
 import javax.swing.JOptionPane;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import java.util.List;
 
 /**
@@ -15,8 +26,11 @@ public class Listar extends javax.swing.JFrame {
     /**
      * Creates new form Listar
      */
+    
+    private static final Logger log = LogManager.getLogger(Listar.class);
     public Listar() {
         initComponents();
+        
     }
 
     /**
@@ -38,7 +52,7 @@ public class Listar extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        dvd_table1 = new javax.swing.JTable();
+        dvd_table = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         book_table = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
@@ -112,7 +126,7 @@ public class Listar extends javax.swing.JFrame {
             }
         });
 
-        dvd_table1.setModel(new javax.swing.table.DefaultTableModel(
+        dvd_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -120,10 +134,10 @@ public class Listar extends javax.swing.JFrame {
 
             }
         ));
-        dvd_table1.setName(""); // NOI18N
-        jScrollPane4.setViewportView(dvd_table1);
-        if (dvd_table1.getColumnModel().getColumnCount() > 0) {
-            dvd_table1.getColumnModel().getColumn(9).setHeaderValue("Titulo material");
+        dvd_table.setName(""); // NOI18N
+        jScrollPane4.setViewportView(dvd_table);
+        if (dvd_table.getColumnModel().getColumnCount() > 0) {
+            dvd_table.getColumnModel().getColumn(9).setHeaderValue("Titulo material");
         }
 
         book_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -328,10 +342,32 @@ public class Listar extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
        
-      int i = JOptionPane.showConfirmDialog(null,"Está seguro que desea borrar este dato?");
-      if (i ==0 ){
-      }else if(i ==1){}
-      else{}
+      int i = JOptionPane.showConfirmDialog(null, "Está seguro que desea borrar este dato?");
+    if (i == 0) {      
+        int selectedRow = cd_table.getSelectedRow();
+        if (selectedRow != -1) { // Si se ha seleccionado una fila
+            Object datoid = cd_table.getValueAt(selectedRow, 0);
+            if (datoid instanceof Integer) {
+                int id = (int) datoid;
+                try {
+                    ServiceCDS serviceCDS = new ServiceCDS(); 
+                    serviceCDS.deleteCD(id); 
+                } catch (Exception ex) {
+                    log.info("Yay");
+                }
+            } else if (datoid instanceof String) {
+                int id = Integer.parseInt((String) datoid);
+                try {
+                    ServiceCDS serviceCDS = new ServiceCDS(); 
+                    serviceCDS.deleteCD(id); 
+                } catch (Exception ex) {
+                    log.debug("Pito");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila para eliminar.");
+        }
+    }
       
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -354,11 +390,48 @@ public class Listar extends javax.swing.JFrame {
                 
 //        Servicio para cargar los DVDs
 
-        
+        ServiceDVDS loadDVDs = new ServiceDVDS();
+        try {
+            
+            List<ModelDVDs> listDVDs = loadDVDs.getAllDVDs();
+            
+            String[] columnNames = {"ID DVD", "Codigo", "Titulo", "# Disponibles", "Director", "Genero", "Duracion", "Tipo de material"};
+            DVDsTablemodel tableModel = new DVDsTablemodel(columnNames, listDVDs);
+            
+        dvd_table.setModel(tableModel);
+        } catch (Exception e) {
+            System.out.println("Exception en Listar: "+e.getLocalizedMessage());
+        }
                 
 //        Servicio para cargar los libros
+    
+        ServiceBooks loadBooks = new ServiceBooks();
+        try {
+            
+            List<ModelBooks> listBooks = loadBooks.getAllBooks();
+            
+            String[] columnNames = {"ID Libro", "Codigo", "Titulo", "# Disponibles", "Autor", "# Páginas", "Editorial", "ISBN", "Año publicación", "Tipo de material"};
+        BooksTablemodel tableModel = new BooksTablemodel(columnNames, listBooks);
+            
+        book_table.setModel(tableModel);
+        } catch (Exception e) {
+            System.out.println("Exception en Listar: "+e.getLocalizedMessage());
+        }
                 
 //        Servicio para cargar las revistas
+
+        ServiceMagazines loadMags = new ServiceMagazines();
+        try {
+            
+            List<ModelMagazines> listMags = loadMags.getAllDVDs();
+            
+            String[] columnNames = {"ID Revista", "Codigo", "Titulo", "# Disponibles", "Editorial", "Periodicidad", "Fecha publicación", "Tipo de material"};
+            MagazinesTablemodel tableModel = new MagazinesTablemodel(columnNames, listMags);
+            
+        book_table.setModel(tableModel);
+        } catch (Exception e) {
+            System.out.println("Exception en Listar: "+e.getLocalizedMessage());
+        }
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -428,7 +501,7 @@ public class Listar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable book_table;
     private javax.swing.JTable cd_table;
-    private javax.swing.JTable dvd_table1;
+    private javax.swing.JTable dvd_table;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
