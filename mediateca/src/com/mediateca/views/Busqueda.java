@@ -1,4 +1,4 @@
-package com.mediateca;
+package com.mediateca.views;
 
 import javax.swing.JOptionPane;
 

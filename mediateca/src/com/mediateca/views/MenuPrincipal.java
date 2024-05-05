@@ -1,9 +1,5 @@
 package com.mediateca.views;
 
-import com.mediateca.adicion;
-import com.mediateca.Listar;
-import com.mediateca.Busqueda;
-
 /**
  *
  * @author ramir
@@ -150,6 +146,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         Listar lista = new Listar();
         lista.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

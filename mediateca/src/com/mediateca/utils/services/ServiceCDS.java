@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mediateca.utils.services;
 import com.mediateca.utils.ConnectionDB;
 import com.mediateca.utils.dbmodels.ModelCDs;
@@ -43,9 +39,12 @@ public class ServiceCDS {
         List<ModelCDs> cds = new ArrayList<>();
         String sql = "SELECT * FROM cdaudio";
         Connection connection = ConnectionDB.getConnection();
+        System.out.println("Pasamos la conexión" + connection);
         Statement statement = connection.createStatement();
+        System.out.println("Stmt? ");
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
+            System.out.println("Tenemos respuesta");
             ModelCDs cd = new ModelCDs();
             cd.setId_cd_audio(rs.getInt("id_cd_audio"));
             cd.setCodigo(rs.getString("codigo"));
@@ -58,6 +57,7 @@ public class ServiceCDS {
             cd.setTipo_material_id(rs.getInt("tipo_material_id"));
             cds.add(cd);
         }
+        System.out.println("Estamos en final de service");
         rs.close();
         statement.close();
         connection.close();

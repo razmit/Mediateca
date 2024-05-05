@@ -20,15 +20,10 @@ public class ConnectionDB {
             String password = "";
 
             conn = DriverManager.getConnection(url, user, password);
+            
             if (conn != null) {
-                System.out.println("Connected to the database");
-                
-                log.info("¡Éxito en conectar con la DB!");
-//                Statement stmt = conn.createStatement();   //Creating Statement.
-//                //Executing Statement.
-//                stmt.executeUpdate("create table `ScoreHistory`(`id` integer, `Player1` varchar(20), `Player2` varchar(20), `Score` integer)");
-//                stmt.executeUpdate("insert into `ScoreHistory` values(3, 'Black', 'White', 10)");
-//                stmt.executeUpdate("insert into `ScoreHistory` values(4, 'Black', 'White', 10)");
+                System.out.println("Connected to the database" + conn);
+                return conn;
                 
             }
             
@@ -37,18 +32,7 @@ public class ConnectionDB {
             ex.printStackTrace();
             log.error("Algo ha fallado al conectar con la DB");
 
-        }
-        finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                }
-                catch(Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-        
+        }        
         return conn;
     }
   

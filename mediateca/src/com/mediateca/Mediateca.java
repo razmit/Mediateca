@@ -1,6 +1,7 @@
 package com.mediateca;
 
 import com.mediateca.utils.ConnectionDB;
+import com.mediateca.views.Login;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,7 +20,11 @@ public class Mediateca {
        log.debug("DEBUG: Este es entry point");
         System.out.println("Classpath: "+ System.getProperty("java.class.Path"));
         try {
-            ConnectionDB.getConnection();
+//            ConnectionDB.getConnection();
+
+            Login login = new Login();
+            login.setVisible(true);
+                        
         } catch (Exception e) {
             System.out.println("Error conectando a la DB");
             e.printStackTrace();
