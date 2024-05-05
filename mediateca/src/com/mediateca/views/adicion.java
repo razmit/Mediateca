@@ -655,10 +655,14 @@ public class adicion extends javax.swing.JFrame {
             String selectedOption = (String) audioOp.getSelectedItem();
             if (selectedOption.equals("CD")){
              cdau.setVisible(true);
-             dvd1.setVisible(false);}
+             dvd1.setVisible(false);
+            lib.setVisible(false);
+            revis.setVisible(false);}
             else if(selectedOption.equals("DVD")){
              cdau.setVisible(false);
-             dvd1.setVisible(true);}
+             dvd1.setVisible(true);
+            lib.setVisible(false);
+            revis.setVisible(false);}
     }//GEN-LAST:event_audioOpActionPerformed
 
     private void escritosOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escritosOpActionPerformed
@@ -667,10 +671,14 @@ public class adicion extends javax.swing.JFrame {
         if (selectedOption.equals("Libro")) {
             lib.setVisible(true);
             revis.setVisible(false);
+            cdau.setVisible(false);
+            dvd1.setVisible(false);
 
         } else if (selectedOption.equals("Revista")) {
             lib.setVisible(false);
             revis.setVisible(true);
+            cdau.setVisible(false);
+            dvd1.setVisible(false);
         }
      
     }//GEN-LAST:event_escritosOpActionPerformed
