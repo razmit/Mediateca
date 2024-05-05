@@ -49,20 +49,20 @@ public class Listar extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btn_edit_cd = new javax.swing.JButton();
+        btn_elim_CD = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         dvd_table = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         book_table = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btn_edit_dvd = new javax.swing.JButton();
+        btn_elim_dvd = new javax.swing.JButton();
+        btn_edit_book = new javax.swing.JButton();
+        btn_elim_book = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         mag_table = new javax.swing.JTable();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        btn_edit_mag = new javax.swing.JButton();
+        btn_elim_mag = new javax.swing.JButton();
         label1 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,21 +108,21 @@ public class Listar extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Revistas");
 
-        jButton2.setBackground(new java.awt.Color(255, 250, 0));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit(3).png"))); // NOI18N
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_edit_cd.setBackground(new java.awt.Color(255, 250, 0));
+        btn_edit_cd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit(3).png"))); // NOI18N
+        btn_edit_cd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
+        btn_edit_cd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_edit_cdActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 0, 0));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete(1).png"))); // NOI18N
-        jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btn_elim_CD.setBackground(new java.awt.Color(255, 0, 0));
+        btn_elim_CD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete(1).png"))); // NOI18N
+        btn_elim_CD.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn_elim_CD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btn_elim_CDActionPerformed(evt);
             }
         });
 
@@ -154,39 +154,39 @@ public class Listar extends javax.swing.JFrame {
             book_table.getColumnModel().getColumn(9).setHeaderValue("Titulo material");
         }
 
-        jButton3.setBackground(new java.awt.Color(255, 250, 0));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit(3).png"))); // NOI18N
-        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_edit_dvd.setBackground(new java.awt.Color(255, 250, 0));
+        btn_edit_dvd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit(3).png"))); // NOI18N
+        btn_edit_dvd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
+        btn_edit_dvd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_edit_dvdActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(255, 0, 0));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete(1).png"))); // NOI18N
-        jButton6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btn_elim_dvd.setBackground(new java.awt.Color(255, 0, 0));
+        btn_elim_dvd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete(1).png"))); // NOI18N
+        btn_elim_dvd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn_elim_dvd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btn_elim_dvdActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 250, 0));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit(3).png"))); // NOI18N
-        jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btn_edit_book.setBackground(new java.awt.Color(255, 250, 0));
+        btn_edit_book.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit(3).png"))); // NOI18N
+        btn_edit_book.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
+        btn_edit_book.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btn_edit_bookActionPerformed(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 0, 0));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete(1).png"))); // NOI18N
-        jButton7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btn_elim_book.setBackground(new java.awt.Color(255, 0, 0));
+        btn_elim_book.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete(1).png"))); // NOI18N
+        btn_elim_book.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn_elim_book.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btn_elim_bookActionPerformed(evt);
             }
         });
 
@@ -204,21 +204,21 @@ public class Listar extends javax.swing.JFrame {
             mag_table.getColumnModel().getColumn(9).setHeaderValue("Titulo material");
         }
 
-        jButton8.setBackground(new java.awt.Color(255, 250, 0));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit(3).png"))); // NOI18N
-        jButton8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btn_edit_mag.setBackground(new java.awt.Color(255, 250, 0));
+        btn_edit_mag.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit(3).png"))); // NOI18N
+        btn_edit_mag.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
+        btn_edit_mag.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btn_edit_magActionPerformed(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(255, 0, 0));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete(1).png"))); // NOI18N
-        jButton9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btn_elim_mag.setBackground(new java.awt.Color(255, 0, 0));
+        btn_elim_mag.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete(1).png"))); // NOI18N
+        btn_elim_mag.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn_elim_mag.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btn_elim_magActionPerformed(evt);
             }
         });
 
@@ -241,21 +241,21 @@ public class Listar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_edit_cd, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_elim_CD, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_edit_book, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_elim_book, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_edit_mag, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_elim_mag, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_edit_dvd, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_elim_dvd, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -270,8 +270,8 @@ public class Listar extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton5)
-                            .addComponent(jButton2))))
+                            .addComponent(btn_elim_CD)
+                            .addComponent(btn_edit_cd))))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -285,12 +285,12 @@ public class Listar extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton6)
-                            .addComponent(jButton3))
+                            .addComponent(btn_elim_dvd)
+                            .addComponent(btn_edit_dvd))
                         .addGap(130, 130, 130)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton7)
-                            .addComponent(jButton4))))
+                            .addComponent(btn_elim_book)
+                            .addComponent(btn_edit_book))))
                 .addGap(12, 12, 12)
                 .addComponent(jLabel4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,8 +300,8 @@ public class Listar extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton9)
-                            .addComponent(jButton8))))
+                            .addComponent(btn_elim_mag)
+                            .addComponent(btn_edit_mag))))
                 .addGap(141, 141, 141))
         );
 
@@ -334,15 +334,15 @@ public class Listar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_edit_cdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit_cdActionPerformed
 
         Edicion edic = new Edicion();
         edic.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_edit_cdActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btn_elim_CDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_elim_CDActionPerformed
        
-      int i = JOptionPane.showConfirmDialog(null, "Está seguro que desea borrar este dato?");
+      int i = JOptionPane.showConfirmDialog(null, "Está seguro que desea borrar este CD?");
     if (i == 0) {      
         int selectedRow = cd_table.getSelectedRow();
         if (selectedRow != -1) { // Si se ha seleccionado una fila
@@ -369,7 +369,7 @@ public class Listar extends javax.swing.JFrame {
         }
     }
       
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btn_elim_CDActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
@@ -439,29 +439,107 @@ public class Listar extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowOpened
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_edit_dvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit_dvdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btn_edit_dvdActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btn_elim_dvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_elim_dvdActionPerformed
+        
+        int i = JOptionPane.showConfirmDialog(null, "Está seguro que desea borrar este DVD?");
+    if (i == 0) {      
+        int selectedRow = dvd_table.getSelectedRow();
+        if (selectedRow != -1) { // Si se ha seleccionado una fila
+            Object datoid = dvd_table.getValueAt(selectedRow, 0);
+            if (datoid instanceof Integer) {
+                int id = (int) datoid;
+                try {
+                    ServiceDVDS serviceDVDs = new ServiceDVDS(); 
+                    serviceDVDs.deleteDVD(id); 
+                } catch (Exception ex) {
+                    log.info("Yay");
+                }
+            } else if (datoid instanceof String) {
+                int id = Integer.parseInt((String) datoid);
+                try {
+                    ServiceDVDS serviceDVDs = new ServiceDVDS(); 
+                    serviceDVDs.deleteDVD(id); 
+                } catch (Exception ex) {
+                    log.debug("Pito");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila para eliminar.");
+        }
+    }
+    }//GEN-LAST:event_btn_elim_dvdActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btn_edit_bookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit_bookActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btn_edit_bookActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void btn_elim_bookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_elim_bookActionPerformed
+        
+        int i = JOptionPane.showConfirmDialog(null, "Está seguro que desea borrar este libro?");
+    if (i == 0) {      
+        int selectedRow = book_table.getSelectedRow();
+        if (selectedRow != -1) { // Si se ha seleccionado una fila
+            Object datoid = book_table.getValueAt(selectedRow, 0);
+            if (datoid instanceof Integer) {
+                int id = (int) datoid;
+                try {
+                    ServiceBooks serviceBooks = new ServiceBooks(); 
+                    serviceBooks.deleteBook(id); 
+                } catch (Exception ex) {
+                    log.info("Yay");
+                }
+            } else if (datoid instanceof String) {
+                int id = Integer.parseInt((String) datoid);
+                try {
+                    ServiceBooks serviceBooks = new ServiceBooks(); 
+                    serviceBooks.deleteBook(id); 
+                } catch (Exception ex) {
+                    log.debug("Pito");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila para eliminar.");
+        }
+    }
+    }//GEN-LAST:event_btn_elim_bookActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void btn_edit_magActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit_magActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_btn_edit_magActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void btn_elim_magActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_elim_magActionPerformed
+        
+        int i = JOptionPane.showConfirmDialog(null, "Está seguro que desea borrar esta revista?");
+    if (i == 0) {      
+        int selectedRow = mag_table.getSelectedRow();
+        if (selectedRow != -1) { // Si se ha seleccionado una fila
+            Object datoid = mag_table.getValueAt(selectedRow, 0);
+            if (datoid instanceof Integer) {
+                int id = (int) datoid;
+                try {
+                    ServiceMagazines serviceMags = new ServiceMagazines(); 
+                    serviceMags.deleteMag(id); 
+                } catch (Exception ex) {
+                    log.info("Yay");
+                }
+            } else if (datoid instanceof String) {
+                int id = Integer.parseInt((String) datoid);
+                try {
+                    ServiceMagazines serviceMags = new ServiceMagazines(); 
+                    serviceMags.deleteMag(id); 
+                } catch (Exception ex) {
+                    log.debug("Pito");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila para eliminar.");
+        }
+    }
+    }//GEN-LAST:event_btn_elim_magActionPerformed
 
     /**
      * @param args the command line arguments
@@ -500,16 +578,16 @@ public class Listar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable book_table;
+    private javax.swing.JButton btn_edit_book;
+    private javax.swing.JButton btn_edit_cd;
+    private javax.swing.JButton btn_edit_dvd;
+    private javax.swing.JButton btn_edit_mag;
+    private javax.swing.JButton btn_elim_CD;
+    private javax.swing.JButton btn_elim_book;
+    private javax.swing.JButton btn_elim_dvd;
+    private javax.swing.JButton btn_elim_mag;
     private javax.swing.JTable cd_table;
     private javax.swing.JTable dvd_table;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
