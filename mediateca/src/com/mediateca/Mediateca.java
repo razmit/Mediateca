@@ -16,8 +16,10 @@ public class Mediateca {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-       log.debug("DEBUG: Este es entry point");
+        
+        System.setProperty("log4j.configurationFile", "../../resources/log4j.properties");
+        
+        log.debug("Este es entry point");
         System.out.println("Classpath: "+ System.getProperty("java.class.Path"));
         try {
 //            ConnectionDB.getConnection();
@@ -28,7 +30,6 @@ public class Mediateca {
         } catch (Exception e) {
             System.out.println("Error conectando a la DB");
             e.printStackTrace();
-        } finally {
         }
     }
     
