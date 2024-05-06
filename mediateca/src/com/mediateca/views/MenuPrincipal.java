@@ -147,8 +147,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        Edicion ventanaEdicion = new Edicion();
-        ventanaEdicion.setVisible(true);
+        Listar lista = new Listar();
+        lista.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

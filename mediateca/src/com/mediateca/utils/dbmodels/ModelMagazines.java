@@ -14,7 +14,7 @@ public class ModelMagazines {
     private int unidades_disponibles;
     private String editorial;
     private String periodicidad;
-    private LocalDate fecha_publicacion;
+    private String fecha_publicacion;
     private int tipo_material_id;
     
     public void ModelMagazines() {
@@ -108,14 +108,14 @@ public class ModelMagazines {
     /**
      * @return the fecha_publicacion
      */
-    public LocalDate getFecha_publicacion() {
+    public String getFecha_publicacion() {
         return fecha_publicacion;
     }
 
     /**
      * @param fecha_publicacion the fecha_publicacion to set
      */
-    public void setFecha_publicacion(LocalDate fecha_publicacion) {
+    public void setFecha_publicacion(String fecha_publicacion) {
         this.fecha_publicacion = fecha_publicacion;
     }
 

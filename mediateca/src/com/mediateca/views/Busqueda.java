@@ -2,10 +2,16 @@ package com.mediateca.views;
 
 import com.mediateca.utils.dbmodels.ModelBooks;
 import com.mediateca.utils.dbmodels.ModelCDs;
+import com.mediateca.utils.dbmodels.ModelDVDs;
+import com.mediateca.utils.dbmodels.ModelMagazines;
 import com.mediateca.utils.services.ServiceBooks;
 import com.mediateca.utils.services.ServiceCDS;
+import com.mediateca.utils.services.ServiceDVDS;
+import com.mediateca.utils.services.ServiceMagazines;
 import com.mediateca.utils.tablemodels.BooksTablemodel;
 import com.mediateca.utils.tablemodels.CDsTablemodel;
+import com.mediateca.utils.tablemodels.DVDsTablemodel;
+import com.mediateca.utils.tablemodels.MagazinesTablemodel;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -224,6 +230,20 @@ public class Busqueda extends javax.swing.JFrame {
                     }
                 break;
                 case "DVD":
+                    ServiceDVDS serviceDVDs = new ServiceDVDS();
+
+                    searchTerm = txt_buscar.getText();
+                    try {
+
+                        List<ModelDVDs> listDVDs = serviceDVDs.searchAllDVDs(searchTerm);
+
+                        String[] columnNames = {"ID Libro", "Codigo", "Titulo", "# Disponibles", "Autor", "# Páginas", "Editorial", "ISBN", "Año publicación", "Tipo de material"};
+                        DVDsTablemodel tableModel = new DVDsTablemodel(columnNames, listDVDs);
+
+                        result_table.setModel(tableModel);
+                    } catch (Exception e) {
+                        System.out.println("Exception en Búsqueda: " + e.getLocalizedMessage());
+                    }
                 break;
                 case "Book":
                     
@@ -243,6 +263,20 @@ public class Busqueda extends javax.swing.JFrame {
                     }
                 break;
                 case "Magazine":
+                    ServiceMagazines serviceMags = new ServiceMagazines();
+
+                    searchTerm = txt_buscar.getText();
+                    try {
+
+                        List<ModelMagazines> listMags = serviceMags.searchAllMagazines(searchTerm);
+
+                        String[] columnNames = {"ID Revista", "Codigo", "Titulo", "# Disponibles", "Editorial", "Periodicidad", "Fecha publicación", "Tipo de material"};
+                        MagazinesTablemodel tableModel = new MagazinesTablemodel(columnNames, listMags);
+
+                        result_table.setModel(tableModel);
+                    } catch (Exception e) {
+                        System.out.println("Exception en Búsqueda: " + e.getLocalizedMessage());
+                    }
                 break;
                 default:
                     throw new AssertionError();

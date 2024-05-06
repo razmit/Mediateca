@@ -12,8 +12,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.ArrayList;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.Instant;
 import java.time.ZoneId;
 
@@ -25,7 +23,6 @@ public class ServiceMagazines {
     
     public void createDVD(ModelMagazines mag) throws SQLException
     {
-        Date sqlDate = Date.valueOf(mag.getFecha_publicacion());
         Connection connection = ConnectionDB.getConnection();
         String sql = "INSERT INTO revista (codigo, titulo, unidades_disponibles, editorial, periodicidad, fecha_publicacion, tipo_material_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -34,7 +31,7 @@ public class ServiceMagazines {
         stmt.setInt(3, mag.getUnidades_disponibles());
         stmt.setString(4, mag.getEditorial());
         stmt.setString(5, mag.getPeriodicidad());
-        stmt.setDate(6, sqlDate);
+        stmt.setString(6, mag.getFecha_publicacion());
         stmt.setInt(7, mag.getTipo_material_id());
         
         stmt.executeUpdate();
@@ -44,7 +41,6 @@ public class ServiceMagazines {
     
     public List<ModelMagazines> getAllDVDs() throws SQLException {
         
-        Instant instant;
         List<ModelMagazines> mags = new ArrayList<>();
         String sql = "SELECT * FROM revista";
         Connection connection = ConnectionDB.getConnection();
@@ -52,14 +48,13 @@ public class ServiceMagazines {
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
             ModelMagazines mag = new ModelMagazines();
-            instant = rs.getDate("fecha_publicacion").toInstant();
             mag.setId_revista(rs.getInt("id_revista"));
             mag.setCodigo(rs.getString("codigo"));
             mag.setTitulo(rs.getString("titulo"));
             mag.setUnidades_disponibles(rs.getInt("unidades_disponibles"));
             mag.setEditorial(rs.getString("editorial"));
             mag.setPeriodicidad(rs.getString("periodicidad"));
-            mag.setFecha_publicacion(instant.atZone(ZoneId.systemDefault()).toLocalDate());
+            mag.setFecha_publicacion(rs.getString("fecha_publicacion"));
             mag.setTipo_material_id(rs.getInt("tipo_material_id"));
             mags.add(mag);
         }
@@ -89,7 +84,7 @@ public class ServiceMagazines {
             selectedMag.setUnidades_disponibles(rs.getInt("unidades_disponibles"));
             selectedMag.setEditorial(rs.getString("editorial"));
             selectedMag.setPeriodicidad(rs.getString("periodicidad"));
-            selectedMag.setFecha_publicacion(instant.atZone(ZoneId.systemDefault()).toLocalDate());
+            selectedMag.setFecha_publicacion(rs.getString("fecha_publicacion"));
             selectedMag.setTipo_material_id(rs.getInt("tipo_material_id"));
         }
         
@@ -99,9 +94,45 @@ public class ServiceMagazines {
         return selectedMag;
     }
     
+    public List<ModelMagazines> searchAllMagazines(String searchTerm) throws SQLException {
+
+        Instant instant;
+        List<ModelMagazines> mags = new ArrayList<>();
+        String wildCard = "%" + searchTerm + "%";
+        int numWildCard = 0;
+        try {
+            numWildCard = Integer.parseInt(searchTerm);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT * FROM revista WHERE (codigo LIKE '" + wildCard + "') OR (titulo LIKE '" + wildCard + "') OR (unidades_disponibles LIKE '" + numWildCard + "') OR (editorial LIKE '" + wildCard + "') OR (periodicidad LIKE '" + wildCard + "') OR (fecha_publicacion LIKE '" + wildCard + "')";
+        Connection connection = ConnectionDB.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            ModelMagazines mag = new ModelMagazines();
+            instant = rs.getDate("fecha_publicacion").toInstant();
+            mag.setId_revista(rs.getInt("id_revista"));
+            mag.setCodigo(rs.getString("codigo"));
+            mag.setTitulo(rs.getString("titulo"));
+            mag.setUnidades_disponibles(rs.getInt("unidades_disponibles"));
+            mag.setEditorial(rs.getString("editorial"));
+            mag.setPeriodicidad(rs.getString("periodicidad"));
+            mag.setFecha_publicacion(rs.getString("fecha_publicacion"));
+            mag.setTipo_material_id(rs.getInt("tipo_material_id"));
+            mags.add(mag);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+        return mags;
+    }
+    
     public void updateMag(ModelMagazines mag) throws SQLException {
         
-        Date sqlDate = Date.valueOf(mag.getFecha_publicacion());
         String sql = "UPDATE revista SET codigo = ?, titulo = ?, unidades_disponibles = ?, editorial = ?, periodicidad = ?, fecha_publicacion = ?, id_tipo_material = ? WHERE id_revista = ?";
         Connection connection = ConnectionDB.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -110,7 +141,7 @@ public class ServiceMagazines {
         stmt.setInt(3, mag.getUnidades_disponibles());
         stmt.setString(4, mag.getEditorial());
         stmt.setString(5, mag.getPeriodicidad());
-        stmt.setDate(6, sqlDate);
+        stmt.setString(6, mag.getFecha_publicacion());
         stmt.setInt(7, mag.getTipo_material_id());
         
         stmt.executeUpdate();

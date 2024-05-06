@@ -90,6 +90,41 @@ public class ServiceDVDS {
         return selectedBook;
     }
     
+    public List<ModelDVDs> searchAllDVDs(String searchTerm) throws SQLException {
+
+        List<ModelDVDs> dvds = new ArrayList<>();
+        String wildCard = "%" + searchTerm + "%";
+        int numWildCard = 0;
+        try {
+            numWildCard = Integer.parseInt(searchTerm);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT * FROM dvd WHERE (codigo LIKE '" + wildCard + "') OR (titulo LIKE '" + wildCard + "') OR (unidades_disponibles LIKE '" + numWildCard + "') OR (director LIKE '" + wildCard + "') OR (genero LIKE '" + wildCard + "') OR (duracion LIKE '" + numWildCard + "')";
+        Connection connection = ConnectionDB.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            ModelDVDs dvd = new ModelDVDs();
+            dvd.setId_dvd(rs.getInt("id_libro"));
+            dvd.setCodigo(rs.getString("codigo"));
+            dvd.setTitulo(rs.getString("titulo"));
+            dvd.setUnidades_disponibles(rs.getInt("unidades_disponibles"));
+            dvd.setDirector(rs.getString("director"));
+            dvd.setGenero(rs.getString("genero"));
+            dvd.setDuracion(rs.getInt("duracion"));
+            dvd.setTipo_material_id(rs.getInt("tipo_material_id"));
+            dvds.add(dvd);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+        return dvds;
+    }
+    
     public void updateDVD(ModelDVDs dvd) throws SQLException {
         
         String sql = "UPDATE dvd SET codigo = ?, titulo = ?, unidades_disponibles = ?, director = ?, genero = ?, duracion = ?, id_tipo_material = ? WHERE id_dvd= ?";
