@@ -1,6 +1,5 @@
 package com.mediateca;
 
-import com.mediateca.utils.ConnectionDB;
 import com.mediateca.views.Login;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 public class Mediateca {
 
     private static final Logger log = LogManager.getLogger(Mediateca.class);
-    /**
+    /**|
      * @param args the command line arguments
      */
     public static void main(String[] args) {

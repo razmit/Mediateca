@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mediateca.utils.services;
+
 import com.mediateca.utils.ConnectionDB;
 import com.mediateca.utils.dbmodels.ModelBooks;
 import java.sql.PreparedStatement;
@@ -18,9 +19,8 @@ import java.util.ArrayList;
  * @author razmit
  */
 public class ServiceBooks {
-    
-    public void createBook(ModelBooks book) throws SQLException
-    {
+
+    public void createBook(ModelBooks book) throws SQLException {
         Connection connection = ConnectionDB.getConnection();
         String sql = "INSERT INTO libro (codigo, titulo, unidades_disponibles, autor, num_paginas, editorial, isbn, ano_publicacion, tipo_material_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -33,12 +33,12 @@ public class ServiceBooks {
         stmt.setString(7, book.getIsbn());
         stmt.setInt(8, book.getAno_publicacion());
         stmt.setInt(9, book.getTipo_material_id());
-        
+
         stmt.executeUpdate();
         stmt.close();
         connection.close();
     }
-    
+
     public List<ModelBooks> getAllBooks() throws SQLException {
 
         List<ModelBooks> books = new ArrayList<>();
@@ -64,18 +64,18 @@ public class ServiceBooks {
         connection.close();
         return books;
     }
-    
+
     public ModelBooks getBookById(int id) throws SQLException {
-        
+
         String sql = "SELECT * FROM libro WHERE id_libro = ?";
         Connection connection = ConnectionDB.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         ModelBooks selectedBook = null;
-        
+
         if (rs.next()) {
-            
+
             selectedBook = new ModelBooks();
             selectedBook.setId_libro(rs.getInt("id_libro"));
             selectedBook.setCodigo(rs.getString("codigo"));
@@ -87,25 +87,25 @@ public class ServiceBooks {
             selectedBook.setAno_publicacion(rs.getInt("ano_publicacion"));
             selectedBook.setTipo_material_id(rs.getInt("tipo_material_id"));
         }
-        
+
         rs.close();
         stmt.close();
         connection.close();
         return selectedBook;
     }
-    
-    public List<ModelBooks> searchAllCDs(String searchTerm) throws SQLException {
+
+    public List<ModelBooks> searchAllBooks(String searchTerm) throws SQLException {
 
         List<ModelBooks> books = new ArrayList<>();
-        String wildCard = "%"+searchTerm+"%";
+        String wildCard = "%" + searchTerm + "%";
         int numWildCard = 0;
         try {
             numWildCard = Integer.parseInt(searchTerm);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        
-        String sql = "SELECT * FROM libro WHERE (codigo LIKE '"+wildCard+"') OR (titulo LIKE '"+wildCard+"') OR (unidades_disponibles LIKE '"+numWildCard+"') OR (autor LIKE '"+wildCard+"') OR (num_paginas LIKE '"+numWildCard+"') OR (editorial LIKE '"+wildCard+"') OR (isbn LIKE '"+wildCard+"') OR (ano_publicacion LIKE '"+numWildCard+"')";
+
+        String sql = "SELECT * FROM libro WHERE (codigo LIKE '" + wildCard + "') OR (titulo LIKE '" + wildCard + "') OR (unidades_disponibles LIKE '" + numWildCard + "') OR (autor LIKE '" + wildCard + "') OR (num_paginas LIKE '" + numWildCard + "') OR (editorial LIKE '" + wildCard + "') OR (isbn LIKE '" + wildCard + "') OR (ano_publicacion LIKE '" + numWildCard + "')";
         Connection connection = ConnectionDB.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -129,9 +129,9 @@ public class ServiceBooks {
         connection.close();
         return books;
     }
-    
+
     public void updateBook(ModelBooks book) throws SQLException {
-        
+
         String sql = "UPDATE libro SET codigo = ?, titulo = ?, unidades_disponibles = ?, autor = ?, num_paginas = ?, editorial = ?, isbn = ?, ano_publicacion = ?, id_tipo_material = ? WHERE id_libro = ?";
         Connection connection = ConnectionDB.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -145,14 +145,14 @@ public class ServiceBooks {
         stmt.setInt(8, book.getAno_publicacion());
         stmt.setInt(9, book.getTipo_material_id());
         stmt.setInt(10, book.getId_libro());
-        
+
         stmt.executeUpdate();
         stmt.close();
         connection.close();
     }
-    
+
     public void deleteBook(int id) throws SQLException {
-        
+
         String sql = "DELETE FROM libro WHERE id_libro = ?";
         Connection connection = ConnectionDB.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);

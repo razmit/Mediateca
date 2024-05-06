@@ -481,7 +481,7 @@ public class Listar extends javax.swing.JFrame {
 
             book_table.setModel(tableModel);
         } catch (Exception e) {
-            System.out.println("Exception en Listar: " + e.getLocalizedMessage());
+            System.out.println("Exception en Listar libros: " + e.getLocalizedMessage());
         }
 
 //        Servicio para cargar las revistas

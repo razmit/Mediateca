@@ -1,8 +1,11 @@
 package com.mediateca.views;
 
+import com.mediateca.utils.dbmodels.ModelBooks;
 import com.mediateca.utils.dbmodels.ModelCDs;
+import com.mediateca.utils.services.ServiceBooks;
 import com.mediateca.utils.services.ServiceCDS;
 import com.mediateca.utils.services.ServiceMagazines;
+import com.mediateca.utils.tablemodels.BooksTablemodel;
 import com.mediateca.utils.tablemodels.CDsTablemodel;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -214,6 +217,21 @@ public class Busqueda extends javax.swing.JFrame {
                 case "DVD" -> {
                 }
                 case "Book" -> {
+                    
+                    ServiceBooks serviceBooks = new ServiceBooks();
+
+                    String searchTerm = txt_buscar.getText();
+                    try {
+
+                        List<ModelBooks> listBooks = serviceBooks.searchAllBooks(searchTerm);
+
+                        String[] columnNames = {"ID Libro", "Codigo", "Titulo", "# Disponibles", "Autor", "# Páginas", "Editorial", "ISBN", "Año publicación", "Tipo de material"};
+                        BooksTablemodel tableModel = new BooksTablemodel(columnNames, listBooks);
+
+                        result_table.setModel(tableModel);
+                    } catch (Exception e) {
+                        System.out.println("Exception en Búsqueda: " + e.getLocalizedMessage());
+                    }
                 }
                 case "Magazine" -> {
                 }
