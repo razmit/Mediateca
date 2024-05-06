@@ -22,7 +22,7 @@ public class ConnectionDB {
             conn = DriverManager.getConnection(url, user, password);
             
             if (conn != null) {
-                System.out.println("Connected to the database" + conn);
+                log.info("Connected to the DB");
                 return conn;
                 
             }

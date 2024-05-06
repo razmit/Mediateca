@@ -1,5 +1,10 @@
 package com.mediateca.views;
 
+import com.mediateca.utils.dbmodels.ModelCDs;
+import com.mediateca.utils.services.ServiceCDS;
+import com.mediateca.utils.services.ServiceMagazines;
+import com.mediateca.utils.tablemodels.CDsTablemodel;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -10,9 +15,14 @@ public class Busqueda extends javax.swing.JFrame {
 
     /**
      * Creates new form Busqueda
+     *
+     * @param tipo_media
      */
-    public Busqueda() {
+    private String tipo_media;
+
+    public Busqueda(String tipo_media) {
         initComponents();
+        this.tipo_media = tipo_media;
     }
 
     /**
@@ -25,53 +35,67 @@ public class Busqueda extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_buscar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        cd_table = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        result_table = new javax.swing.JTable();
+        btn_editar_result = new javax.swing.JButton();
+        btn_elim_result = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
             }
         });
 
-        cd_table.setModel(new javax.swing.table.DefaultTableModel(
+        txt_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_buscarActionPerformed(evt);
+            }
+        });
+
+        result_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {},
+                {},
+                {}
             },
             new String [] {
-                "id", "Codigo", "Titulo", "Unidades", "Autor", "Num paginas", "editorial", "Isbn", "Año de publicacion", "Title 10"
+
             }
         ));
-        jScrollPane2.setViewportView(cd_table);
+        jScrollPane2.setViewportView(result_table);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mediateca/edit(3).png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_editar_result.setBackground(new java.awt.Color(255, 255, 0));
+        btn_editar_result.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit(3).png"))); // NOI18N
+        btn_editar_result.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
+        btn_editar_result.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_editar_resultActionPerformed(evt);
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mediateca/delete(1).png"))); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btn_elim_result.setBackground(new java.awt.Color(255, 0, 0));
+        btn_elim_result.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete(1).png"))); // NOI18N
+        btn_elim_result.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn_elim_result.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btn_elim_resultActionPerformed(evt);
             }
         });
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setText("Busqueda");
+        jLabel1.setText("Búsqueda");
         jLabel1.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -85,14 +109,14 @@ public class Busqueda extends javax.swing.JFrame {
                         .addComponent(jScrollPane2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(284, 284, 284)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_editar_result, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_elim_result, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(161, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(157, 157, 157))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,16 +134,16 @@ public class Busqueda extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(jButton1)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton5))
-                .addContainerGap(55, Short.MAX_VALUE))
+                    .addComponent(btn_editar_result)
+                    .addComponent(btn_elim_result))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -134,31 +158,71 @@ public class Busqueda extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txt_buscarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_editar_resultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_resultActionPerformed
         //  editar
 //        edicion edic = new edicion();
 //        edic.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_editar_resultActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btn_elim_resultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_elim_resultActionPerformed
 
-        int i = JOptionPane.showConfirmDialog(null,"Está seguro que desea borrar este dato?");
-        if (i ==0 ){
-        }else if(i ==1){}
-        else{}
+        int i = JOptionPane.showConfirmDialog(null, "Está seguro que desea borrar este dato?");
+        if (i == 0) {
+        } else if (i == 1) {
+        } else {
+        }
 
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btn_elim_resultActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+
+
+    }//GEN-LAST:event_formWindowActivated
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        // Buscar
+        try {
+            switch (tipo_media) {
+                case "CD" -> {
+
+                    ServiceCDS serviceCDs = new ServiceCDS();
+
+                    String searchTerm = txt_buscar.getText();
+                    try {
+
+                        List<ModelCDs> listCDs = serviceCDs.searchAllCDs(searchTerm);
+
+                        String[] columnNames = {"ID CD", "Codigo", "Titulo", "# Disponibles", "Artista", "Genero", "Duracion", "# Canciones", "Tipo de material"};
+                        CDsTablemodel tableModel = new CDsTablemodel(columnNames, listCDs);
+
+                        result_table.setModel(tableModel);
+                    } catch (Exception e) {
+                        System.out.println("Exception en Búsqueda: " + e.getLocalizedMessage());
+                    }
+                }
+                case "DVD" -> {
+                }
+                case "Book" -> {
+                }
+                case "Magazine" -> {
+                }
+                default ->
+                    throw new AssertionError();
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,19 +254,19 @@ public class Busqueda extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Busqueda().setVisible(true);
+//                new Busqueda().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable cd_table;
+    private javax.swing.JButton btn_editar_result;
+    private javax.swing.JButton btn_elim_result;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable result_table;
+    private javax.swing.JTextField txt_buscar;
     // End of variables declaration//GEN-END:variables
 }

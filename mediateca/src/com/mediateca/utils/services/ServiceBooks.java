@@ -94,6 +94,42 @@ public class ServiceBooks {
         return selectedBook;
     }
     
+    public List<ModelBooks> searchAllCDs(String searchTerm) throws SQLException {
+
+        List<ModelBooks> books = new ArrayList<>();
+        String wildCard = "%"+searchTerm+"%";
+        int numWildCard = 0;
+        try {
+            numWildCard = Integer.parseInt(searchTerm);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        
+        String sql = "SELECT * FROM libro WHERE (codigo LIKE '"+wildCard+"') OR (titulo LIKE '"+wildCard+"') OR (unidades_disponibles LIKE '"+numWildCard+"') OR (autor LIKE '"+wildCard+"') OR (num_paginas LIKE '"+numWildCard+"') OR (editorial LIKE '"+wildCard+"') OR (isbn LIKE '"+wildCard+"') OR (ano_publicacion LIKE '"+numWildCard+"')";
+        Connection connection = ConnectionDB.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            ModelBooks book = new ModelBooks();
+            book.setId_libro(rs.getInt("id_libro"));
+            book.setCodigo(rs.getString("codigo"));
+            book.setTitulo(rs.getString("titulo"));
+            book.setUnidades_disponibles(rs.getInt("unidades_disponibles"));
+            book.setAutor(rs.getString("autor"));
+            book.setNum_paginas(rs.getInt("num_paginas"));
+            book.setIsbn(rs.getString("isbn"));
+            book.setAno_publicacion(rs.getInt("ano_publicacion"));
+            book.setTipo_material_id(rs.getInt("tipo_material_id"));
+            books.add(book);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+        return books;
+    }
+    
     public void updateBook(ModelBooks book) throws SQLException {
         
         String sql = "UPDATE libro SET codigo = ?, titulo = ?, unidades_disponibles = ?, autor = ?, num_paginas = ?, editorial = ?, isbn = ?, ano_publicacion = ?, id_tipo_material = ? WHERE id_libro = ?";

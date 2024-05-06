@@ -1,4 +1,5 @@
 package com.mediateca.utils.services;
+
 import com.mediateca.utils.ConnectionDB;
 import com.mediateca.utils.dbmodels.ModelCDs;
 import java.sql.PreparedStatement;
@@ -14,9 +15,8 @@ import java.util.ArrayList;
  * @author E095713
  */
 public class ServiceCDS {
-    
-    public void createCD(ModelCDs cd) throws SQLException
-    {
+
+    public void createCD(ModelCDs cd) throws SQLException {
         Connection connection = ConnectionDB.getConnection();
         String sql = "INSERT INTO cdaudio (codigo, titulo, unidades_disponibles, artista, genero, duracion, num_canciones, tipo_material_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -28,23 +28,20 @@ public class ServiceCDS {
         stmt.setInt(6, cd.getDuracion());
         stmt.setInt(7, cd.getNum_canciones());
         stmt.setInt(8, cd.getTipo_material_id());
-        
+
         stmt.executeUpdate();
         stmt.close();
         connection.close();
     }
-    
+
     public List<ModelCDs> getAllCDs() throws SQLException {
 
         List<ModelCDs> cds = new ArrayList<>();
         String sql = "SELECT * FROM cdaudio";
         Connection connection = ConnectionDB.getConnection();
-        System.out.println("Pasamos la conexión" + connection);
         Statement statement = connection.createStatement();
-        System.out.println("Stmt? ");
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
-            System.out.println("Tenemos respuesta");
             ModelCDs cd = new ModelCDs();
             cd.setId_cd_audio(rs.getInt("id_cd_audio"));
             cd.setCodigo(rs.getString("codigo"));
@@ -57,24 +54,24 @@ public class ServiceCDS {
             cd.setTipo_material_id(rs.getInt("tipo_material_id"));
             cds.add(cd);
         }
-        System.out.println("Estamos en final de service");
+
         rs.close();
         statement.close();
         connection.close();
         return cds;
     }
-    
+
     public ModelCDs getCDById(int id) throws SQLException {
-        
+
         String sql = "SELECT * FROM cdaudio WHERE id_cd_audio = ?";
         Connection connection = ConnectionDB.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         ModelCDs selectedCD = null;
-        
+
         if (rs.next()) {
-            
+
             selectedCD = new ModelCDs();
             selectedCD.setId_cd_audio(rs.getInt("id_cd_audio"));
             selectedCD.setCodigo(rs.getString("codigo"));
@@ -86,15 +83,51 @@ public class ServiceCDS {
             selectedCD.setNum_canciones(rs.getInt("num_canciones"));
             selectedCD.setTipo_material_id(rs.getInt("tipo_material_id"));
         }
-        
+
         rs.close();
         stmt.close();
         connection.close();
         return selectedCD;
     }
-    
-    public void updateCD(ModelCDs cd) throws SQLException {
+
+    public List<ModelCDs> searchAllCDs(String searchTerm) throws SQLException {
+
+        List<ModelCDs> cds = new ArrayList<>();
+        String wildCard = "%"+searchTerm+"%";
+        int numWildCard = 0;
+        try {
+            numWildCard = Integer.parseInt(searchTerm);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
         
+        String sql = "SELECT * FROM cdaudio WHERE (codigo LIKE '"+wildCard+"') OR (titulo LIKE '"+wildCard+"') OR (unidades_disponibles LIKE '"+numWildCard+"') OR (artista LIKE '"+wildCard+"') OR (genero LIKE '"+wildCard+"') OR (duracion LIKE '"+numWildCard+"') OR (num_canciones LIKE '"+numWildCard+"')";
+        Connection connection = ConnectionDB.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            ModelCDs cd = new ModelCDs();
+            cd.setId_cd_audio(rs.getInt("id_cd_audio"));
+            cd.setCodigo(rs.getString("codigo"));
+            cd.setTitulo(rs.getString("titulo"));
+            cd.setUnidades_disponibles(rs.getInt("unidades_disponibles"));
+            cd.setArtista(rs.getString("artista"));
+            cd.setGenero(rs.getString("genero"));
+            cd.setDuracion(rs.getInt("duracion"));
+            cd.setNum_canciones(rs.getInt("num_canciones"));
+            cd.setTipo_material_id(rs.getInt("tipo_material_id"));
+            cds.add(cd);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+        return cds;
+    }
+
+    public void updateCD(ModelCDs cd) throws SQLException {
+
         String sql = "UPDATE cdaudio SET codigo = ?, titulo = ?, unidades_disponibles = ?, artista = ?, genero = ?, duracion = ?, num_canciones = ?, tipo_material_id = ? WHERE id_cd_audio = ?";
         Connection connection = ConnectionDB.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -107,14 +140,14 @@ public class ServiceCDS {
         stmt.setInt(7, cd.getNum_canciones());
         stmt.setInt(8, cd.getTipo_material_id());
         stmt.setInt(9, cd.getId_cd_audio());
-        
+
         stmt.executeUpdate();
         stmt.close();
         connection.close();
     }
-    
+
     public void deleteCD(int id) throws SQLException {
-        
+
         String sql = "DELETE FROM cdaudio WHERE id_cd_audio = ?";
         Connection connection = ConnectionDB.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);

@@ -152,8 +152,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-         Busqueda bus = new Busqueda();
-        bus.setVisible(true);
+//         Busqueda bus = new Busqueda();
+//        bus.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
