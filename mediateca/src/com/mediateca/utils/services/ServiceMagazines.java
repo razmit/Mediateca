@@ -21,7 +21,7 @@ import java.time.ZoneId;
  */
 public class ServiceMagazines {
     
-    public void createDVD(ModelMagazines mag) throws SQLException
+    public void createMag(ModelMagazines mag) throws SQLException
     {
         Connection connection = ConnectionDB.getConnection();
         String sql = "INSERT INTO revista (codigo, titulo, unidades_disponibles, editorial, periodicidad, fecha_publicacion, tipo_material_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -39,7 +39,7 @@ public class ServiceMagazines {
         connection.close();
     }
     
-    public List<ModelMagazines> getAllDVDs() throws SQLException {
+    public List<ModelMagazines> getAllMags() throws SQLException {
         
         List<ModelMagazines> mags = new ArrayList<>();
         String sql = "SELECT * FROM revista";

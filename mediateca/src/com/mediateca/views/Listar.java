@@ -502,7 +502,7 @@ public class Listar extends javax.swing.JFrame {
         ServiceMagazines loadMags = new ServiceMagazines();
         try {
 
-            List<ModelMagazines> listMags = loadMags.getAllDVDs();
+            List<ModelMagazines> listMags = loadMags.getAllMags();
 
             String[] columnNames = {"ID Revista", "Codigo", "Titulo", "# Disponibles", "Editorial", "Periodicidad", "Fecha publicación", "Tipo de material"};
             MagazinesTablemodel tableModel = new MagazinesTablemodel(columnNames, listMags);
