@@ -507,7 +507,7 @@ public class Listar extends javax.swing.JFrame {
             String[] columnNames = {"ID Revista", "Codigo", "Titulo", "# Disponibles", "Editorial", "Periodicidad", "Fecha publicación", "Tipo de material"};
             MagazinesTablemodel tableModel = new MagazinesTablemodel(columnNames, listMags);
 
-            book_table.setModel(tableModel);
+            mag_table.setModel(tableModel);
         } catch (Exception e) {
             System.out.println("Exception en Listar: " + e.getLocalizedMessage());
         }

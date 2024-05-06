@@ -64,12 +64,12 @@ public class Busqueda extends javax.swing.JFrame {
 
         result_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {},
+                {},
+                {}
             },
             new String [] {
-                "id", "Codigo", "Titulo", "Unidades", "Autor", "Num paginas", "editorial", "Isbn", "Año de publicacion", "Title 10"
+
             }
         ));
         jScrollPane2.setViewportView(result_table);
@@ -101,7 +101,7 @@ public class Busqueda extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setText("Busqueda");
+        jLabel1.setText("Búsqueda");
         jLabel1.setToolTipText("");
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/flecha-hacia-atras (1).png"))); // NOI18N
