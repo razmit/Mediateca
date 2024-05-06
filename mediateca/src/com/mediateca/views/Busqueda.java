@@ -173,10 +173,10 @@ public class Busqueda extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        MenuPrincipal menuPrincipal = new MenuPrincipal();
-            menuPrincipal.setLocationRelativeTo(null);
-            menuPrincipal.setVisible(true);
-            this.dispose();
+    Listar listar = new Listar();
+    listar.setLocationRelativeTo(null);
+    listar.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
