@@ -11,7 +11,9 @@ public class adicion extends javax.swing.JFrame {
      */
     public adicion() {
         initComponents();
-
+        
+        setLocationRelativeTo(null);
+        
         materialeleccion.add(op1);
         materialeleccion.add(op2);
         lib.setVisible(false);
@@ -611,6 +613,11 @@ public class adicion extends javax.swing.JFrame {
         });
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/flecha-hacia-atras (1).png"))); // NOI18N
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -820,6 +827,14 @@ public class adicion extends javax.swing.JFrame {
 // Agregar Revistas
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+    MenuPrincipal menuPrincipal = new MenuPrincipal();
+            menuPrincipal.setLocationRelativeTo(null);
+            menuPrincipal.setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> audioOp;
