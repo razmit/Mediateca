@@ -11,7 +11,7 @@ public class adicion extends javax.swing.JFrame {
      */
     public adicion() {
         initComponents();
-        
+
         materialeleccion.add(op1);
         materialeleccion.add(op2);
         lib.setVisible(false);
@@ -21,7 +21,6 @@ public class adicion extends javax.swing.JFrame {
         cdau.setVisible(false);
         dvd1.setVisible(false);
         setSize(757, 556);
-        
 
     }
 
@@ -724,16 +723,17 @@ public class adicion extends javax.swing.JFrame {
 
     private void audioOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_audioOpActionPerformed
         String selectedOption = (String) audioOp.getSelectedItem();
-        if (selectedOption.equals("CD")){
+        if (selectedOption.equals("CD")) {
             cdau.setVisible(true);
             dvd1.setVisible(false);
             lib.setVisible(false);
-            revis.setVisible(false);}
-        else if(selectedOption.equals("DVD")){
+            revis.setVisible(false);
+        } else if (selectedOption.equals("DVD")) {
             cdau.setVisible(false);
             dvd1.setVisible(true);
             lib.setVisible(false);
-            revis.setVisible(false);}
+            revis.setVisible(false);
+        }
     }//GEN-LAST:event_audioOpActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
@@ -813,7 +813,12 @@ public class adicion extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField13ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
+//        Agregar CDs
+// Agregar DVDs
+// Agregar Libros
+// Agregar Revistas
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
